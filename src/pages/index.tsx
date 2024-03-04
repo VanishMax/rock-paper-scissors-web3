@@ -1,19 +1,30 @@
 import { FC } from 'react';
 import styles from './styles.module.css';
-import { GameButton } from 'entities/game';
+import { PlayButton } from 'entities/game';
+import { Account } from 'entities/user';
+import { useAccount } from 'wagmi';
 
 export const HomePage: FC = () => {
+  const { isConnected } = useAccount();
+
   return (
     <main className={styles.page}>
-      <h1>Welcome</h1>
+      <header>
+        <h1>Welcome!</h1>
+        <Account />
+      </header>
 
-      <section className={styles.game}>
-        <GameButton type="rock" />
-        <GameButton type="paper" />
-        <GameButton type="scissors" />
-        <GameButton type="lizard" />
-        <GameButton type="spock" />
-      </section>
+      {isConnected ? (
+        <>
+          <p>Choose your turn</p>
+          <PlayButton />
+        </>
+      ) : (
+        <>
+          <p>This is an extended Rock Paper Scissors game.</p>
+          <p>Please connect your wallet to play</p>
+        </>
+      )}
     </main>
   );
 };

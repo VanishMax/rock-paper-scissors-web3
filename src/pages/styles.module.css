@@ -11,13 +11,9 @@
   }
 }
 
-.page h1 {
-  text-align: center;
-}
-
-.game {
+.page header {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
