@@ -8,12 +8,20 @@ export const Account: FC = () => {
   const { connectors, connect } = useConnect();
   const injectedConnector = connectors[0];
 
+  const onConnect = () => {
+    connect({connector: injectedConnector}, {
+      onSuccess: () => {
+        console.log('connected');
+      }
+    });
+  };
+
   return isConnected ? (
     <button className={styles.connector} onClick={() => disconnect()}>
       Disconnect
     </button>
   ) : (
-    <button className={styles.connector} onClick={() => connect({connector: injectedConnector})}>
+    <button className={styles.connector} onClick={onConnect}>
       {isConnecting ? 'Connecting...' : 'Connect wallet'}
     </button>
   );

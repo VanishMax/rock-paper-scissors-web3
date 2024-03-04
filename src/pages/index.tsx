@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styles from './styles.module.css';
-import { PlayButton } from 'entities/game';
+import { PlayButton, GameConnection } from 'entities/game';
 import { Account } from 'entities/user';
 import { useAccount } from 'wagmi';
 
@@ -16,6 +16,9 @@ export const HomePage: FC = () => {
 
       {isConnected ? (
         <>
+          <GameConnection />
+          <br />
+
           <p>Choose your turn</p>
           <PlayButton />
         </>
