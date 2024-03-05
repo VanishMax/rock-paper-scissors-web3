@@ -2,7 +2,9 @@ export const APP_ID = 'rock-paper-scissors-web3-vanishmax';
 
 export const PEER_HOST = `${APP_ID}_host`;
 
-export const TURNS = ['rock', 'paper', 'scissors', 'lizard', 'spock'] as const;
+export const CONTRACT_LOCAL_STORAGE_KEY = 'rock-paper-scissors-web3-contract';
+
+export const TURNS = ['rock', 'paper', 'scissors', 'spock', 'lizard'] as const;
 
 export type TurnType = typeof TURNS[number];
 
