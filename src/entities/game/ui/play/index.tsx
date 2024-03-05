@@ -1,22 +1,26 @@
 import { FC } from 'react';
 import { GameButton } from '../game-button';
-import { Turns, TurnType } from '../../model';
+import { TURNS, TurnType } from '../../model';
 import styles from './styles.module.css';
 
-export const PlayButton: FC = () => {
-  const onPlay = (turn: TurnType): void => {
-    console.log(turn);
-  };
+export interface PlayButtonProps {
+  onPlay: (turn: TurnType) => void;
+}
 
+export const PlayButton: FC<PlayButtonProps> = ({ onPlay }) => {
   return (
-    <div className={styles.wrapper}>
-      {Turns.map((turn) => (
-        <GameButton
-          key={turn}
-          type={turn}
-          onClick={() => onPlay(turn)}
-        />
-      ))}
-    </div>
+    <>
+      <p>Please, choose your turn</p>
+      <div className={styles.wrapper}>
+        {TURNS.map((turn) => (
+          <GameButton
+            key={turn}
+            type={turn}
+            onClick={() => onPlay(turn)}
+          />
+        ))}
+      </div>
+    </>
+
   );
 };

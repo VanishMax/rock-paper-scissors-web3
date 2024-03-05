@@ -1,5 +1,5 @@
 import { Peer } from 'peerjs';
-import { APP_ID, PEER_HOST } from './types.ts';
+import { APP_ID, PEER_HOST } from '../types.ts';
 
 export const getPeer = (address: string): Promise<{ peer: Peer; isHost: boolean }> => {
   return new Promise((resolve) => {
