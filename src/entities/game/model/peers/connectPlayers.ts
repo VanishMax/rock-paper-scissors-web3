@@ -4,8 +4,13 @@ import { gameOpponent, isGameHost, setGameState, gameConnection, gameContract } 
 import { sendConnectionMessage, receiveConnectionMessage } from './сonnectionMessageHandlers.ts';
 
 export const connectPlayers = async (address: string) => {
-  setGameState('waiting-connection');
+  // If contract is already present in the localStorage, then the game is already started – no need for peers
+  if (gameContract.value) {
+    setGameState('waiting-for-contract-data');
+    return;
+  }
 
+  setGameState('waiting-connection');
   const { peer, isHost } = await getPeer(address);
   isGameHost.value = isHost;
 

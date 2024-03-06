@@ -1,8 +1,29 @@
-import { setGameState } from '../store.ts';
-import type { TurnType } from '../types.ts';
+import { getWalletClient, waitForTransactionReceipt } from 'wagmi/actions';
+import { config as wagmiConfig } from 'app/wagmi.ts';
+import { writeContract } from 'viem/actions';
+import type { Hex } from 'viem';
 
-export const clientTurn = async (turn: TurnType) => {
-  console.log('CLIENT TURN', turn);
-  setGameState('waiting-for-solve-function');
-  // TODO: call play function in the smart contract
+import { gameContract, setGameState } from '../store';
+import { contractAbi } from './contractAbi.ts';
+import { getTurnIndex, STAKE_VALUE, TurnType } from '../types.ts';
+
+export const clientTurn = async (clientAddress: string, turn: TurnType) => {
+  if (!gameContract.value) return;
+
+  setGameState('waiting-for-contract-update');
+
+  const walletClient = await getWalletClient(wagmiConfig);
+  const txHash = await writeContract(walletClient, {
+    address: gameContract.value as Hex,
+    account: clientAddress as Hex,
+    abi: contractAbi,
+    functionName: 'play',
+    args: [getTurnIndex(turn)],
+    value: STAKE_VALUE,
+  });
+  const result = await waitForTransactionReceipt(wagmiConfig, { hash: txHash });
+
+  if (result.status === 'success') {
+    setGameState('waiting-for-solve-function');
+  }
 };

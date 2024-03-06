@@ -1,0 +1,18 @@
+.play {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: #000;
+  background: white;
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.play:hover, .play:focus {
+  color: #1a64ff;
+  border-color: #1a64ff;
+}
