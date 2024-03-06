@@ -39,7 +39,7 @@ export const STATES = [
   'waiting-for-solve-function',
   'waiting-for-contract-update',
   'host-solving',
-  'victory',
+  'finish',
 ] as const;
 
 export type StateType = typeof STATES[number];

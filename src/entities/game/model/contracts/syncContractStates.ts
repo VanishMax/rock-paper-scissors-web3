@@ -26,7 +26,7 @@ export const syncContractStates = async (address: string, stop: VoidFunction) =>
     setGameState('host-solving');
   }
   if (res.clientMove && res.stake === 0n) {
-    setGameState('victory');
+    setGameState('finish');
     stopTheGame();
     stop();
   }

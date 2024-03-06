@@ -10,7 +10,7 @@ export const HomePage: FC = () => {
   return (
     <main className={styles.page}>
       <header>
-        <h1>Welcome!</h1>
+        <h1>RPS Web 3</h1>
         <Account />
       </header>
 

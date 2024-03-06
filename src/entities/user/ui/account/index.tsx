@@ -1,9 +1,11 @@
 import { FC, useEffect } from 'react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import styles from './styles.module.css';
+import { useSignals } from '@preact/signals-react/runtime';
 import { setGameState } from 'entities/game/model';
+import styles from './styles.module.css';
 
 export const Account: FC = () => {
+  useSignals();
   const { isConnected, isConnecting } = useAccount();
   const { disconnect } = useDisconnect();
   const { connectors, connect } = useConnect();

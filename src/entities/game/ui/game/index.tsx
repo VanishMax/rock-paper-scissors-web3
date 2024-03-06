@@ -2,14 +2,17 @@ import { FC } from 'react';
 import { useSignals } from '@preact/signals-react/runtime';
 import { useAccount } from 'wagmi';
 
-import { isWaiting, isGameHost, gameState, actions, TurnType } from '../../model';
+import { isWaiting, isGameHost, gameState, actions, TurnType, useVictory } from '../../model';
 import { PlayButton } from '../play';
 import { Loader } from '../loader';
 import styles from './styles.module.css';
+import { formatBigint } from 'shared/utils/formatBigint.ts';
 
 export const Game: FC = () => {
   useSignals();
+
   const { address } = useAccount();
+  const { isWinner, balanceDiff } = useVictory();
 
   actions.sync();
 
@@ -54,8 +57,31 @@ export const Game: FC = () => {
     );
   }
 
-  if (gameState.value === 'victory') {
-    return <div>Victory!!!</div>;
+  if (gameState.value === 'finish' && isWinner !== undefined) {
+    if (isWinner === 'tie') {
+      return (
+        <div className={styles.finish}>
+          <h3>🤝🤝🤝 It's a tie! 🤝🤝🤝</h3>
+          <p>Your balance now lacks <span className={styles.red}>{formatBigint(balanceDiff || 0n)}</span></p>
+        </div>
+      );
+    }
+
+    if (isWinner === 'win') {
+      return (
+        <div className={styles.finish}>
+          <h3>🎉🎉🎉 You won! 🎉🎉🎉</h3>
+          <p>You received <span className={styles.green}>{formatBigint(balanceDiff || 0n)}</span></p>
+        </div>
+      );
+    }
+
+    return (
+      <div className={styles.finish}>
+        <h3>😞😞😞 You lost! 😞😞😞</h3>
+        <p>Your balance now lacks <span className={styles.red}>{formatBigint(balanceDiff || 0n)}</span></p>
+      </div>
+    );
   }
 
   return (

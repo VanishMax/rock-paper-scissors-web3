@@ -16,3 +16,15 @@
   color: #1a64ff;
   border-color: #1a64ff;
 }
+
+.finish {
+  text-align: center;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
