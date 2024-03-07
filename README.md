@@ -7,6 +7,8 @@ In this game, the smart contract is deployed for each play. Two parties stake th
 
 Try the deployed game [here](https://rps-web3.vercel.app/). Make sure your have a web3 wallet (preferably [Metamask](https://metamask.io/)) installed and connected to the [Sepolia network](https://moralis.io/how-to-add-the-sepolia-network-to-metamask-full-guide/).
 
+[Demo video](https://drive.google.com/file/d/1qroCJFNaipwjnzd3JF-rL4al0BDj1H_C/view?usp=sharing);
+
 ## Technical details
 
 This project is built around the single [Solidity smart contract made by @Clesaege](https://github.com/clesaege/RPS/blob/master/RPS.sol). It is special because:

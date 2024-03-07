@@ -57,7 +57,7 @@ export const Game: FC = () => {
   if (gameState.value === 'host-solving') {
     return (
       <>
-        <p>Your opponent choose their turn. Finishing the game?</p>
+        <p>Your opponent chose their turn. Finishing the game?</p>
         <button type="button" className={styles.play} onClick={onHostSolve}>
           Solve the game
         </button>
