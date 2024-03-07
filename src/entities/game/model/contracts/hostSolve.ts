@@ -5,11 +5,14 @@ import type { Hex } from 'viem';
 
 import { gameContract, hostTurnSalt, setGameState } from '../store';
 import { contractAbi } from './contractAbi.ts';
+import { sendConnectionMessage } from '../peers/сonnectionMessageHandlers.ts';
 
 export const hostSolve = async (hostAddress: string) => {
   if (!gameContract.value || !hostTurnSalt.value) return;
 
   setGameState('waiting-for-solve-function');
+  sendConnectionMessage('solve', '');
+
   const walletClient = await getWalletClient(wagmiConfig);
   await writeContract(walletClient, {
     address: gameContract.value as Hex,

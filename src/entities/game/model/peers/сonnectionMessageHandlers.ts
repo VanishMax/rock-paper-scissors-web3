@@ -1,6 +1,6 @@
 import { gameConnection } from '../store.ts';
 
-type ConnectionMessageType = 'address' | 'start' | 'contract';
+type ConnectionMessageType = 'address' | 'start' | 'contract' | 'client-turn' | 'solve';
 
 export const sendConnectionMessage = (type: ConnectionMessageType, message: string) => {
   if (!gameConnection.value) return;

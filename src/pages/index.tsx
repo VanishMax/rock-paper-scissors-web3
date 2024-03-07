@@ -20,8 +20,9 @@ export const HomePage: FC = () => {
         </>
       ) : (
         <>
-          <p>This is an extended Rock Paper Scissors game. If you win, receive 0.1 sETH!</p>
-          <p>Please connect your wallet to play</p>
+          <p>This is an extended Rock Paper Scissors game. If you win, <b>receive 0.1 sETH!</b></p>
+          <p>Please connect your wallet with <b>Sepolia network</b> to play</p>
+          <p>Note: the preferred wallet is Metamask</p>
         </>
       )}
     </main>

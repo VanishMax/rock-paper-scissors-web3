@@ -6,11 +6,13 @@ import type { Hex } from 'viem';
 import { gameContract, setGameState } from '../store';
 import { contractAbi } from './contractAbi.ts';
 import { getTurnIndex, STAKE_VALUE, TurnType } from '../types.ts';
+import { sendConnectionMessage } from '../peers/сonnectionMessageHandlers.ts';
 
 export const clientTurn = async (clientAddress: string, turn: TurnType) => {
   if (!gameContract.value) return;
 
   setGameState('waiting-for-contract-update');
+  sendConnectionMessage('client-turn', '');
 
   const walletClient = await getWalletClient(wagmiConfig);
   const txHash = await writeContract(walletClient, {

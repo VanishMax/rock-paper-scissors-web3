@@ -9,6 +9,8 @@ export const TURNSALT_LOCAL_STORAGE_KEY = 'rock-paper-scissors-web3-turnsalt';
 // 0.01 sETH
 export const STAKE_VALUE = 10000000000000000n;
 
+export const TIMEOUT_VALUE = 300n;
+
 export const TURNS = ['rock', 'paper', 'scissors', 'spock', 'lizard'] as const;
 
 type GetTurnIndexFn = {
@@ -40,6 +42,8 @@ export const STATES = [
   'waiting-for-contract-update',
   'host-solving',
   'finish',
+  'waiting-for-client-timeout',
+  'waiting-for-host-timeout',
 ] as const;
 
 export type StateType = typeof STATES[number];
@@ -54,6 +58,8 @@ export const LOADING_STATES = [
   'waiting-for-client-turn',
   'waiting-for-solve-function',
   'waiting-for-contract-update',
+  'waiting-for-client-timeout',
+  'waiting-for-host-timeout',
 ] as const;
 
 export type LoadingStateType = typeof LOADING_STATES[number];

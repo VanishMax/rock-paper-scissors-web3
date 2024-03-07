@@ -4,13 +4,13 @@ import { StateType, LOADING_STATES, LoadingStateType, CONTRACT_LOCAL_STORAGE_KEY
 
 export const gameState = signal<StateType>('waiting-auth');
 
-export const gameLogs = signal([]);
-
 export const isGameHost = signal(false);
 
 export const gameOpponent = signal<string | undefined>(undefined);
 
 export const gameConnection = signal<DataConnection | undefined>(undefined);
+
+export const gameTimeout = signal<bigint | undefined>(undefined);
 
 export const gameContract = signal<string | undefined>(localStorage.getItem(CONTRACT_LOCAL_STORAGE_KEY) || undefined);
 

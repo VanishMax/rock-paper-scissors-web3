@@ -27,6 +27,13 @@ export const connectPlayers = async (address: string) => {
         }
       });
 
+      conn.on('data', (data) => {
+        const { type } = receiveConnectionMessage(data as string);
+        if (type === 'client-turn') {
+          setGameState('waiting-for-contract-update');
+        }
+      });
+
       conn.on('close', () => {
         console.warn('CONN CLOSED');
       });
@@ -46,6 +53,9 @@ export const connectPlayers = async (address: string) => {
       } else if (type === 'contract') {
         gameContract.value = messageData;
         setGameState('client-choose-turn');
+      } else if (type === 'solve') {
+        gameContract.value = messageData;
+        setGameState('waiting-for-solve-function');
       }
     });
 

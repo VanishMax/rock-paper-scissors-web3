@@ -32,8 +32,16 @@ export const Game: FC = () => {
     actions.hostSolve(address!);
   };
 
+  const onClientTimeout = (): void => {
+    actions.clientTimeout();
+  };
+
+  const onHostTimeout = (): void => {
+    actions.hostTimeout();
+  };
+
   if (isWaiting.value) {
-    return <Loader />;
+    return <Loader clientTimeout={onClientTimeout} hostTimeout={onHostTimeout} />;
   }
 
   if (isGameHost.value) {

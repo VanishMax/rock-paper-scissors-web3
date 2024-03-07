@@ -1,10 +1,18 @@
-import { FC } from 'react';
-import { gameState, isWaiting, LoadingStateType } from '../../model';
+import { FC, useRef } from 'react';
+import { gameState, gameTimeout, isWaiting, LoadingStateType } from '../../model';
 import { useSignals } from '@preact/signals-react/runtime';
 import styles from './styles.module.css';
+import { useSignalEffect } from '@preact/signals-react';
 
-export const Loader: FC = () => {
+export interface LoaderProps {
+  clientTimeout: VoidFunction;
+  hostTimeout: VoidFunction;
+}
+
+export const Loader: FC<LoaderProps> = ({ clientTimeout, hostTimeout }) => {
   useSignals();
+
+  const isTimedOut = useRef(false);
 
   const loadingTexts: Record<LoadingStateType, string> = {
     'waiting-connection': 'Waiting for connection',
@@ -16,7 +24,20 @@ export const Loader: FC = () => {
     'waiting-for-contract-deployment': 'Waiting for contract deployment',
     'waiting-for-solve-function': 'Waiting for the game to finish',
     'waiting-for-contract-update': 'Waiting for contract update',
+    'waiting-for-client-timeout': 'Your opponent doesn\'t respond. Stopping the game',
+    'waiting-for-host-timeout': 'Your opponent doesn\'t respond. Stopping the game',
   };
+
+  useSignalEffect(() => {
+    if (gameTimeout.value === undefined || isTimedOut.current) return;
+    if (gameTimeout.value <= 0 && gameState.value === 'waiting-for-client-turn') {
+      isTimedOut.current = true;
+      hostTimeout();
+    } else if (gameTimeout.value <= 0 && gameState.value === 'waiting-for-solve-function') {
+      isTimedOut.current = true;
+      clientTimeout();
+    }
+  });
 
   if (isWaiting.value && loadingTexts?.[gameState.value as LoadingStateType]) {
     return (
@@ -25,6 +46,11 @@ export const Loader: FC = () => {
         <p>
           {loadingTexts[gameState.value as LoadingStateType]}
         </p>
+        {gameTimeout.value !== undefined && gameTimeout.value > 0 && (
+          <p className={gameTimeout.value < 60 ? styles.red : ''}>
+            Timeout in: {gameTimeout.value.toString()} seconds
+          </p>
+        )}
       </div>
     );
   }
