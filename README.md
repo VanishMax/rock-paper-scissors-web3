@@ -25,6 +25,11 @@ To make the game work and keep is as decentralized as possible, the following st
 5. Then, the contract is solved by the host, and the game outcome is determined. The stake is distributed accordingly.
 6. If some of the steps take more than 5 minutes, the contract time outs and the stake is returned to the players.
 
+As for the security and cheating prevention of the game, the following steps were taken:
+1. If both players leave the game, the timeout function would still fire when they come back. So, there is always a possibility to get the stake back.
+2. The second player can never see the move of the first player, since it is hashed using keccak256 encryption with random salt. The salt is generated for each game with the `crypto.getRandomValues()` function, producing a unique array of random numbers.
+3. The first player also can see the move of the second player but they can't change their move, since the contract is already deployed.
+
 All contract communication is managed with [Viem library](https://viem.sh/).
 
 The code is structured according to [Feature-Sliced design](https://feature-sliced.design/).
