@@ -12,7 +12,6 @@ export const useReadGameContract = () => {
   useSignalEffect(() => {
     let interval: number = 0;
 
-    console.log('SYNC', gameContract.value, address);
     if (gameContract.value && address) {
       syncContractStates(address, () => clearInterval(interval));
       interval = setInterval(
