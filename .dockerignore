@@ -1,0 +1,9 @@
+**/node_modules
+**/dist
+
+.idea
+.idea
+fly.toml
+.tmp
+.vercel
+.DS_Store

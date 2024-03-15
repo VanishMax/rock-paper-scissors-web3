@@ -20,9 +20,11 @@
   "homepage": "https://github.com/vanishmax/rock-paper-scissors-web3#readme",
   "scripts": {
     "dev": "nx run-many --target=dev",
-    "build": "vite build",
+    "dev:client": "nx run client:dev",
+    "build:client": "nx run client:build",
+    "preview:client": "nx run client:preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
-    "preview": "vite preview"
+    "server:build": "nx run server:build"
   },
   "engines": {
     "node": ">=18.0.0",

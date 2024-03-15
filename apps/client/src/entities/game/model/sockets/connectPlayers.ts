@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 import { isGameHost, setGameState, gameOpponent, gameConnection, gameContract } from '../store';
 import { StateType } from '../types';
 
-const WS_ADDRESS = 'ws://localhost:3001';
+const WS_ADDRESS = import.meta.env.MODE === 'production' ? 'https://rcs-server.fly.dev' : 'ws://localhost:3001';
 
 export const connectPlayers = (address: string): void => {
   const socket = io(WS_ADDRESS, {
