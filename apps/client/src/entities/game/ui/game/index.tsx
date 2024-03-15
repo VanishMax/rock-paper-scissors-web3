@@ -40,18 +40,32 @@ export const Game: FC = () => {
     actions.hostTimeout();
   };
 
+  if (gameState.value === 'cant-play') {
+    return (
+      <p>The game is in play. Please, try connecting later.</p>
+    );
+  }
+
+  if (gameState.value === 'opponent-disconnected') {
+    return (
+      <p>Your opponent disconnected before the start of the game. Refresh the page to start again.</p>
+    );
+  }
+
+  if (gameState.value === 'disconnected') {
+    return (
+      <p>You are disconnected! Refresh the page to start  again.</p>
+    );
+  }
+
   if (isWaiting.value) {
     return <Loader clientTimeout={onClientTimeout} hostTimeout={onHostTimeout} />;
   }
 
-  if (isGameHost.value) {
-    if (gameState.value === 'host-choose-turn') {
-      return <PlayButton onPlay={onHostPlay} />;
-    }
-  } else {
-    if (gameState.value === 'client-choose-turn') {
-      return <PlayButton onPlay={onClientPlay} />;
-    }
+  if (isGameHost.value && gameState.value === 'host-choose-turn') {
+    return <PlayButton onPlay={onHostPlay} />;
+  } else if (!isGameHost.value && gameState.value === 'client-choose-turn') {
+    return <PlayButton onPlay={onClientPlay} />;
   }
 
   if (gameState.value === 'host-solving') {

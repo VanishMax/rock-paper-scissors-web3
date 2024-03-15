@@ -21,4 +21,4 @@ RUN chown -R org:org .
 # The bundled output will include external dependencies.
 RUN npm --prefix org --omit=dev -f install
 
-CMD [ "node", "org" ]
+CMD [ "node", "server" ]

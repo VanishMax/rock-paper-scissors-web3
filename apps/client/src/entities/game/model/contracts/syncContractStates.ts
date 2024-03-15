@@ -22,7 +22,6 @@ export const syncContractStates = async (address: string, stop: VoidFunction) =>
   } else {
     gameTimeout.value = undefined;
   }
-  console.log(res.stake, timeout);
 
   if (!res.clientMove && isGameHost.value && timeout > 0n) {
     setGameState('waiting-for-client-turn');

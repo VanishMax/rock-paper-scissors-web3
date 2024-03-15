@@ -1,6 +1,6 @@
 import { getPublicClient } from 'wagmi/actions';
-import { config as wagmiConfig } from 'app/wagmi';
-import { contractAbi } from 'entities/game/model/contracts/contractAbi';
+import { config as wagmiConfig } from '../../../../app/wagmi';
+import { contractAbi } from './contractAbi';
 import { readContract } from 'viem/actions';
 import { Hex } from 'viem';
 

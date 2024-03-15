@@ -1,11 +1,10 @@
 import { deployContract as viemDeployContract } from 'viem/actions';
 import { getWalletClient, waitForTransactionReceipt } from 'wagmi/actions';
-import { config as wagmiConfig } from 'app/wagmi';
+import { config as wagmiConfig } from '../../../../app/wagmi';
 import { keccak256, toHex, encodePacked } from 'viem';
 import type { Hex } from 'viem';
 
 import { gameOpponent, setGameState, gameConnection, gameContract, hostTurnSalt } from '../store';
-import { sendConnectionMessage } from '../peers/сonnectionMessageHandlers';
 import { contractBytecode } from './contractBytecode';
 import { contractAbi } from './contractAbi';
 import { TurnType, getTurnIndex, STAKE_VALUE } from '../types';
@@ -16,7 +15,7 @@ export const deployContract = async (hostAddress: string, turn: TurnType) => {
   }
 
   setGameState('waiting-for-contract-deployment');
-  sendConnectionMessage('start', '');
+  gameConnection.value.emit('forward-state', 'waiting-for-contract-deployment');
 
   /**
    * Calculate hash with salt:
@@ -46,7 +45,7 @@ export const deployContract = async (hostAddress: string, turn: TurnType) => {
 
   if (result.contractAddress) {
     gameContract.value = result.contractAddress;
-    sendConnectionMessage('contract', result.contractAddress);
+    gameConnection.value.emit('contract', result.contractAddress);
     setGameState('waiting-for-client-turn');
   }
 };

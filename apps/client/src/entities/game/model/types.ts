@@ -27,6 +27,9 @@ export const getTurnIndex: GetTurnIndexFn = (turn: any): any => {
 export type TurnType = typeof TURNS[number];
 
 export const STATES = [
+  'cant-play',
+  'disconnected',
+  'opponent-disconnected',
   'waiting-auth',
   'connected',
   'waiting-connection',

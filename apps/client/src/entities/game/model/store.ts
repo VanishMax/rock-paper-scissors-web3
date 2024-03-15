@@ -1,6 +1,6 @@
 import { computed, effect, signal } from '@preact/signals-react';
-import { DataConnection } from 'peerjs';
 import { StateType, LOADING_STATES, LoadingStateType, CONTRACT_LOCAL_STORAGE_KEY, TURNSALT_LOCAL_STORAGE_KEY } from './types';
+import { Socket } from 'socket.io-client';
 
 export const gameState = signal<StateType>('waiting-auth');
 
@@ -8,7 +8,7 @@ export const isGameHost = signal(false);
 
 export const gameOpponent = signal<string | undefined>(undefined);
 
-export const gameConnection = signal<DataConnection | undefined>(undefined);
+export const gameConnection = signal<Socket | undefined>(undefined);
 
 export const gameTimeout = signal<bigint | undefined>(undefined);
 

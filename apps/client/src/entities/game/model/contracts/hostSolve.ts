@@ -1,5 +1,5 @@
 import { getWalletClient } from 'wagmi/actions';
-import { config as wagmiConfig } from 'app/wagmi';
+import { config as wagmiConfig } from '../../../../app/wagmi';
 import { writeContract } from 'viem/actions';
 import type { Hex } from 'viem';
 
